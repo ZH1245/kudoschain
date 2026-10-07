@@ -46,6 +46,8 @@ import (
 	ibckeeper "github.com/cosmos/ibc-go/v10/modules/core/keeper"
 
 	"kudoschain/docs"
+	bountymodulekeeper "kudoschain/x/bounty/keeper"
+	kudosmodulekeeper "kudoschain/x/kudos/keeper"
 )
 
 const (
@@ -98,7 +100,9 @@ type App struct {
 	TransferKeeper      ibctransferkeeper.Keeper
 
 	// simulation manager
-	sm *module.SimulationManager
+	sm           *module.SimulationManager
+	KudosKeeper  kudosmodulekeeper.Keeper
+	BountyKeeper bountymodulekeeper.Keeper
 }
 
 func init() {
@@ -178,6 +182,8 @@ func New(
 		&app.ConsensusParamsKeeper,
 		&app.CircuitBreakerKeeper,
 		&app.ParamsKeeper,
+		&app.KudosKeeper,
+		&app.BountyKeeper,
 	); err != nil {
 		panic(err)
 	}

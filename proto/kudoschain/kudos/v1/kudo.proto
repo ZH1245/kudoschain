@@ -1,0 +1,11 @@
+syntax = "proto3";
+package kudoschain.kudos.v1;
+
+option go_package = "kudoschain/x/kudos/types";
+
+// Kudo defines the Kudo message.
+message Kudo {
+  string giver = 1;
+  string receiver = 2;
+  string message = 3;
+}

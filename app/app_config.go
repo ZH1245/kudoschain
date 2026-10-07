@@ -1,6 +1,10 @@
 package app
 
 import (
+	_ "kudoschain/x/bounty/module"
+	bountymoduletypes "kudoschain/x/bounty/types"
+	_ "kudoschain/x/kudos/module"
+	kudosmoduletypes "kudoschain/x/kudos/types"
 	"time"
 
 	runtimev1alpha1 "cosmossdk.io/api/cosmos/app/runtime/v1alpha1"
@@ -81,6 +85,7 @@ var (
 		{Account: nft.ModuleName},
 		{Account: ibctransfertypes.ModuleName, Permissions: []string{authtypes.Minter, authtypes.Burner}},
 		{Account: icatypes.ModuleName},
+		{Account: bountymoduletypes.ModuleName},
 	}
 
 	// blocked account addresses
@@ -122,14 +127,14 @@ var (
 						// ibc modules
 						ibcexported.ModuleName,
 						// chain modules
-					},
+						kudosmoduletypes.ModuleName, bountymoduletypes.ModuleName},
 					EndBlockers: []string{
 						govtypes.ModuleName,
 						stakingtypes.ModuleName,
 						feegrant.ModuleName,
 						group.ModuleName,
 						// chain modules
-					},
+						kudosmoduletypes.ModuleName, bountymoduletypes.ModuleName},
 					// The following is mostly only needed when ModuleName != StoreKey name.
 					OverrideStoreKeys: []*runtimev1alpha1.StoreKeyConfig{
 						{
@@ -164,7 +169,7 @@ var (
 						ibctransfertypes.ModuleName,
 						icatypes.ModuleName,
 						// chain modules
-					},
+						kudosmoduletypes.ModuleName, bountymoduletypes.ModuleName},
 				}),
 			},
 			{
@@ -259,6 +264,12 @@ var (
 				Name:   epochstypes.ModuleName,
 				Config: appconfig.WrapAny(&epochsmodulev1.Module{}),
 			},
-		},
+			{
+				Name:   kudosmoduletypes.ModuleName,
+				Config: appconfig.WrapAny(&kudosmoduletypes.Module{}),
+			}, {
+				Name:   bountymoduletypes.ModuleName,
+				Config: appconfig.WrapAny(&bountymoduletypes.Module{}),
+			}},
 	})
 )

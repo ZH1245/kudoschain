@@ -1,0 +1,16 @@
+syntax = "proto3";
+package kudoschain.bounty.v1;
+
+import "cosmos/base/v1beta1/coin.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "kudoschain/x/bounty/types";
+
+// Bounty defines the Bounty message.
+message Bounty {
+  string title = 1;
+  cosmos.base.v1beta1.Coin reward = 2 [(gogoproto.nullable) = false];
+  string creator = 3;
+  bool claimed = 4;
+  uint64 expires_at = 5;
+}

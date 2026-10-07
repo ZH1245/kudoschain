@@ -1,0 +1,14 @@
+syntax = "proto3";
+package kudoschain.bounty.v1;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "kudoschain/x/bounty/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (amino.name) = "kudoschain/x/bounty/Params";
+  option (gogoproto.equal) = true;
+  uint64 bounty_lifetime_blocks = 1;
+}
